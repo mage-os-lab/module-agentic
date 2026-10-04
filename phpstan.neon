@@ -1,0 +1,16 @@
+includes:
+    - vendor/bitexpert/phpstan-magento/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+parameters:
+    level: 8
+    excludePaths:
+        - Test/Integration
+    paths:
+        - Api
+        - Console
+        - Controller
+        - Model
+        - Test
+    treatPhpDocTypesAsCertain: false
+    parallel:
+        maximumNumberOfProcesses: 1

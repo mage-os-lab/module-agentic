@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--
+        The /.well-known/ router runs before core's URL-rewrite router (sortOrder 20). It claims only
+        the endpoints registered in the pool; any other /.well-known/ path falls through.
+    -->
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="mageos_agentic_wellknown" xsi:type="array">
+                    <item name="class"     xsi:type="string">MageOS\Agentic\Model\Router\WellKnownRouter</item>
+                    <item name="disable"   xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">19</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

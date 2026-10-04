@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <!--
+            The standard-router URL behind the /.well-known/ documents. WellKnownRouter forwards
+            here, and the controller 301s a direct request back to the canonical path.
+        -->
+        <route id="mageos_agentic" frontName="mageos-agentic">
+            <module name="MageOS_Agentic"/>
+        </route>
+    </router>
+</config>

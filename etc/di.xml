@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--
+        The /.well-known/ endpoint registry. Another module serves a /.well-known/* document by
+        appending to this pool from its own di.xml; nothing here needs editing.
+    -->
+    <type name="MageOS\Agentic\Model\WellKnown\EndpointPool">
+        <arguments>
+            <argument name="endpoints" xsi:type="array">
+                <item name="ucp" xsi:type="object">MageOS\Agentic\Model\WellKnown\Endpoint\UcpEndpoint</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="mageos_agentic_ucp_keygen"
+                      xsi:type="object">MageOS\Agentic\Console\Command\UcpKeygenCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--
+        Public documents: MageOS_Seo's session check starts no session for these paths, so no cookie
+        and no no-cache headers land on responses meant to be shared-cached.
+    -->
+    <type name="MageOS\Seo\Model\Router\PublicPaths">
+        <arguments>
+            <argument name="prefixes" xsi:type="array">
+                <!-- The /.well-known/ documents (Model\Router\WellKnownRouter::PREFIX) -->
+                <item name="well_known" xsi:type="string">.well-known/</item>
+                <!-- The internal controller URL, which the canonical-path redirect sends back -->
+                <item name="agentic_front_name" xsi:type="string">mageos-agentic/</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

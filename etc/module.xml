@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="MageOS_Agentic">
+        <sequence>
+            <!--
+                MageOS_Seo owns the admin tab and ACL parent these settings sit under, and the
+                public-path registry and canonical-path redirect the /.well-known/ documents use.
+            -->
+            <module name="MageOS_Seo"/>
+            <module name="Magento_Store"/>
+        </sequence>
+    </module>
+</config>

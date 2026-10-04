@@ -1,0 +1,21 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    // Mutation testing covers the code unit tests can verify: the profile builder, the UCP pools and
+    // their entry validator, the configuration reader, the endpoint registry and the router.
+    "source": {
+        "directories": ["Model"]
+    },
+    "mutators": { "@default": true },
+    "phpUnit": { "configDir": "." },
+    // Infection runs PHPUnit from the module directory, where Magento's code generator has never
+    // run, so a test that doubles a generated class (the controller's RawFactory) cannot be built.
+    // Those tests are tagged magento-generated and run in the unit job, inside an installation.
+    "testFrameworkOptions": "--exclude-group=magento-generated",
+    // The same thresholds as MageOS_Seo, which this module was split from.
+    "minMsi": 58,
+    "minCoveredMsi": 70,
+    "logs": {
+        "text": "infection.log",
+        "github": true
+    }
+}
