@@ -8,7 +8,7 @@ use Magento\Framework\App\RouterList;
 use Magento\TestFramework\Helper\Bootstrap;
 use MageOS\Agentic\Model\Router\WellKnownRouter;
 use MageOS\Agentic\Model\WellKnown\EndpointPool;
-use MageOS\Seo\Model\Router\PublicPaths;
+use MageOS\Seo\Api\Router\PublicPathsInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -57,7 +57,7 @@ class DiWiringTest extends TestCase
      */
     public function testTheWellKnownPathsArePublic(): void
     {
-        $publicPaths = Bootstrap::getObjectManager()->get(PublicPaths::class);
+        $publicPaths = Bootstrap::getObjectManager()->get(PublicPathsInterface::class);
 
         $this->assertTrue($publicPaths->isPublicPath('/.well-known/ucp'));
         $this->assertTrue($publicPaths->isPublicPath('/mageos-agentic/wellknown/index/endpoint/ucp'));

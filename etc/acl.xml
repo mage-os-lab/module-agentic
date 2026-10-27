@@ -4,10 +4,13 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <!-- Under MageOS_Seo's SEO resource, beside its own configuration resources. -->
-                <resource id="MageOS_Seo::seo">
-                    <resource id="MageOS_Agentic::config" title="Agentic Commerce (UCP) Configuration"
-                              translate="title" sortOrder="40"/>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="MageOS_Agentic::config" title="Agentic Commerce (UCP) Configuration"
+                                      translate="title" sortOrder="220"/>
+                        </resource>
+                    </resource>
                 </resource>
             </resource>
         </resources>

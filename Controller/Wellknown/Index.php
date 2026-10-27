@@ -11,7 +11,7 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use MageOS\Agentic\Model\Router\WellKnownRouter;
 use MageOS\Agentic\Model\WellKnown\EndpointPool;
-use MageOS\Seo\Model\Router\CanonicalPathRedirect;
+use MageOS\Seo\Api\Router\CanonicalPathRedirectInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -26,14 +26,14 @@ class Index implements HttpGetActionInterface
      * @param EndpointPool $endpointPool
      * @param RawFactory $rawFactory
      * @param RequestInterface $request
-     * @param CanonicalPathRedirect $canonicalPathRedirect
+     * @param CanonicalPathRedirectInterface $canonicalPathRedirect
      * @param LoggerInterface $logger
      */
     public function __construct(
         private readonly EndpointPool $endpointPool,
         private readonly RawFactory $rawFactory,
         private readonly RequestInterface $request,
-        private readonly CanonicalPathRedirect $canonicalPathRedirect,
+        private readonly CanonicalPathRedirectInterface $canonicalPathRedirect,
         private readonly LoggerInterface $logger
     ) {
     }
