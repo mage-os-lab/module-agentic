@@ -44,10 +44,6 @@ class OwnerRegistrationsTest extends TestCase
     }
 
     /**
-     * The resource sits with every other configuration section's, under Stores → Settings →
-     * Configuration (MageOS_Seo's decision D11a). It was under `MageOS_Seo::seo`, which Seo 2.0 moved
-     * under Marketing; naming that node under another parent made the merged ACL invalid.
-     *
      * @return void
      */
     public function testTheAclResourceSitsWithEveryOtherConfigurationSection(): void

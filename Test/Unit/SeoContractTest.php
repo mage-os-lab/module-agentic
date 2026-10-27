@@ -7,14 +7,7 @@ namespace MageOS\Agentic\Test\Unit;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Decision D7b: this module uses MageOS_Seo only through Seo's `Api` interfaces, the contract Seo
- * keeps from 2.0.0. Any other Seo class may change in any Seo release, and this module's `^2.0`
- * would still accept that release, with nothing to flag the break.
- *
- * The scan is textual, over the production code: every PHP file outside Test/ and every XML file
- * under etc/ (where di.xml names types). Docblocks count too: one that points at a Seo class outside
- * the contract is out of date. vendor/ and dot-directories are skipped, because CI installs this
- * module's dependencies, Seo among them, inside the module.
+ * Production code uses MageOS_Seo only through its `Api` interfaces.
  */
 class SeoContractTest extends TestCase
 {
@@ -41,7 +34,6 @@ class SeoContractTest extends TestCase
             }
         }
 
-        // A scan that found nothing to scan would pass for the wrong reason.
         $this->assertContains('Controller/Wellknown/Index.php', $scanned);
         $this->assertContains('etc/di.xml', $scanned);
 

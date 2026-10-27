@@ -4,11 +4,6 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <!--
-                    With every other configuration section's, under Stores → Settings → Configuration,
-                    where MageOS_Seo's own configuration resource also sits. The resource ID is
-                    unchanged, so roles keep their grants.
-                -->
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
