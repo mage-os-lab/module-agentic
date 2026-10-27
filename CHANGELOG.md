@@ -16,7 +16,7 @@ before 2026-10-02. Its history up to then is kept in that repository.
 
 - **Split from mage-os/module-seo.** The `/.well-known/` endpoint registry and router, the UCP
   business profile at `/.well-known/ucp` and the `ucp:keygen` command come from MageOS_Seo,
-  which this module requires: its admin tab and ACL parent hold these settings, and its public-path
+  which this module requires: its admin tab holds these settings, and its public-path
   registry and canonical-path redirect serve the documents.
   - **Unchanged:** the settings (`mageos_agentic/*`, under Stores → Configuration → MageOS SEO →
     Agentic Commerce (UCP)), the ACL resource `MageOS_Agentic::config`, the internal URL
@@ -35,6 +35,16 @@ before 2026-10-02. Its history up to then is kept in that repository.
   provider and the reasons, and left out. See `docs/ucp.md`.
 
 ### Changed
+
+- **Requires MageOS_Seo 2.0** (`mage-os/module-seo ^2.0`, was `^1.2`), and uses it only through
+  its `Api` interfaces: `Api\Router\PublicPathsInterface` and
+  `Api\Router\CanonicalPathRedirectInterface`, where it named `Model\Router\PublicPaths` and
+  `Model\Router\CanonicalPathRedirect`.
+- **The ACL resource `MageOS_Agentic::config` sits under Stores → Settings → Configuration**, with
+  every other configuration section's (MageOS_Seo's decision D11a). It was under `MageOS_Seo::seo`
+  at the top level, which Seo 2.0 moved under Marketing: with both installed, the merged ACL had two
+  `MageOS_Seo::seo` nodes, one without a title, and the admin failed to load ("Could not create an
+  acl object: Invalid Document"). The ID is unchanged, so roles keep their grants.
 
 - **Breaking: the settings, command and internal URL have their own prefix.**
   - The section is **Agentic Commerce (UCP)**, `mageos_agentic/{general,signing}/*` (was

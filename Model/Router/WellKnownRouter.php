@@ -20,7 +20,7 @@ class WellKnownRouter implements RouterInterface
 {
     /**
      * Everything under the agentic-discovery prefix. Registered as public in di.xml
-     * (MageOS\Seo\Model\Router\PublicPaths), so no session is started for these documents.
+     * (MageOS\Seo\Api\Router\PublicPathsInterface), so no session is started for these documents.
      */
     public const PREFIX = '.well-known/';
 

@@ -27,7 +27,7 @@
         Public documents: MageOS_Seo's session check starts no session for these paths, so no cookie
         and no no-cache headers land on responses meant to be shared-cached.
     -->
-    <type name="MageOS\Seo\Model\Router\PublicPaths">
+    <type name="MageOS\Seo\Api\Router\PublicPathsInterface">
         <arguments>
             <argument name="prefixes" xsi:type="array">
                 <!-- The /.well-known/ documents (Model\Router\WellKnownRouter::PREFIX) -->

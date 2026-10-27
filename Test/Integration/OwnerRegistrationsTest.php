@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MageOS\Agentic\Test\Integration;
 
 use Magento\Config\Model\Config\Structure;
+use Magento\Framework\Acl\AclResource\ProviderInterface;
 use Magento\Framework\Acl\Builder as AclBuilder;
 use Magento\Framework\Console\CommandListInterface;
 use Magento\TestFramework\Helper\Bootstrap;
@@ -43,16 +44,27 @@ class OwnerRegistrationsTest extends TestCase
     }
 
     /**
-     * The resource sits under MageOS_Seo's SEO resource, where admin roles already find it.
+     * The resource sits with every other configuration section's, under Stores → Settings →
+     * Configuration (MageOS_Seo's decision D11a). It was under `MageOS_Seo::seo`, which Seo 2.0 moved
+     * under Marketing; naming that node under another parent made the merged ACL invalid.
      *
      * @return void
      */
-    public function testTheAclResourceIsRegisteredUnderSeo(): void
+    public function testTheAclResourceSitsWithEveryOtherConfigurationSection(): void
     {
         $acl = Bootstrap::getObjectManager()->get(AclBuilder::class)->getAcl();
 
         $this->assertTrue($acl->hasResource('MageOS_Agentic::config'));
-        $this->assertTrue($acl->inheritsResource('MageOS_Agentic::config', 'MageOS_Seo::seo'));
+        $this->assertSame(
+            [
+                'Magento_Backend::admin',
+                'Magento_Backend::stores',
+                'Magento_Backend::stores_settings',
+                'Magento_Config::config',
+                'MageOS_Agentic::config',
+            ],
+            $this->ancestry('MageOS_Agentic::config')
+        );
     }
 
     /**
@@ -69,5 +81,43 @@ class OwnerRegistrationsTest extends TestCase
 
         $this->assertContains('ucp:keygen', $names);
         $this->assertNotContains('mageos:seo:ucp:keygen', $names);
+    }
+
+    /**
+     * The resource IDs from the root down to the one given, as the merged ACL tree has them.
+     *
+     * @param string $resourceId
+     * @return string[]
+     */
+    private function ancestry(string $resourceId): array
+    {
+        $tree = Bootstrap::getObjectManager()->get(ProviderInterface::class)->getAclResources();
+
+        return $this->find($tree, $resourceId, []) ?? [];
+    }
+
+    /**
+     * Depth-first search for a resource, carrying the path to it.
+     *
+     * @param array<int, array<string, mixed>> $nodes
+     * @param string $resourceId
+     * @param string[] $path
+     * @return string[]|null
+     */
+    private function find(array $nodes, string $resourceId, array $path): ?array
+    {
+        foreach ($nodes as $node) {
+            $here   = $path;
+            $here[] = (string) $node['id'];
+            if ($node['id'] === $resourceId) {
+                return $here;
+            }
+            $found = $this->find($node['children'] ?? [], $resourceId, $here);
+            if ($found !== null) {
+                return $found;
+            }
+        }
+
+        return null;
     }
 }

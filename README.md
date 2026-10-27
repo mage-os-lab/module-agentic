@@ -28,9 +28,9 @@ declares nothing.
 
 - PHP 8.3 – 8.5
 - Magento Open Source / Mage-OS **2.4.7 or newer** (`magento/framework ^103.0.7`)
-- **MageOS_Seo** (`mage-os/module-seo`). This module's settings sit under its admin tab and ACL
-  resource, and the `/.well-known/` documents use its public-path registry (no session, so they
-  stay shared-cacheable) and its canonical-path redirect.
+- **MageOS_Seo 2.0 or newer** (`mage-os/module-seo ^2.0`). This module's settings sit under its admin
+  tab, and the `/.well-known/` documents use its public-path registry (no session, so they stay
+  shared-cacheable) and its canonical-path redirect, through its `Api` interfaces.
 
 ---
 
@@ -48,7 +48,7 @@ bin/magento cache:flush
 ## Admin configuration
 
 **Stores → Configuration → MageOS SEO → Agentic Commerce (UCP)** (`mageos_agentic`), under the ACL
-resource `MageOS_Agentic::config`:
+resource `MageOS_Agentic::config` (Stores → Settings → Configuration):
 
 | Group | Purpose | Default |
 | --- | --- | --- |

@@ -11,7 +11,7 @@ use Magento\Framework\Controller\Result\Redirect;
 use MageOS\Agentic\Api\WellKnownEndpointInterface;
 use MageOS\Agentic\Controller\Wellknown\Index;
 use MageOS\Agentic\Model\WellKnown\EndpointPool;
-use MageOS\Seo\Model\Router\CanonicalPathRedirect;
+use MageOS\Seo\Api\Router\CanonicalPathRedirectInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -74,7 +74,7 @@ class IndexTest extends TestCase
         $request = $this->createStub(RequestInterface::class);
         $request->method('getParam')->willReturn($endpointName);
 
-        $canonicalPathRedirect = $this->createStub(CanonicalPathRedirect::class);
+        $canonicalPathRedirect = $this->createStub(CanonicalPathRedirectInterface::class);
         $canonicalPathRedirect->method('check')->willReturnCallback(
             function (string $path) use ($redirect): ?Redirect {
                 $this->askedFor = $path;
